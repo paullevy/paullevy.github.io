@@ -192,6 +192,13 @@ html,body{
         iconAnchor: [16, 37],
         popupAnchor: [0, -37]
         }); 
+			
+	var icon_river = L.icon({
+        iconUrl: 'river.png',
+        shadowUrl: 'shadow.png',
+        iconAnchor: [16, 37],
+        popupAnchor: [0, -37]
+        }); 
         
     
 	marker_idem=L.marker([39.76913, -86.16431], {
@@ -241,15 +248,16 @@ html,body{
         icon: icon_job,
         title:"Scientific Aid",
         riseOnHover:true, 
+		zIndexOffset:1000,
     }).addTo(map)
-		.bindPopup("<b>July 2014 - Present</b><br><i>Scientific Aid</i><br>California Department of Water Resources<br>Bay Delta Office<br>Conveyance Branch<br><br><a href='javascript:;' onclick='map.fitBounds(marker_group_CCFPS.getBounds(), {padding: [100,100]});'>Clifton Court Forebay Predation Study</a><br>&nbsp;-&nbsp;Collect fish using hook and line sampling methods<br>&nbsp;-&nbsp;Tag and release fish<br>&nbsp;-&nbsp;Conduct bird and fishermen surveys<br>&nbsp;-&nbsp;Collect weather and water quality data<br><img class='popup_image' src='DWR_logo_150.jpg'/>");
+		.bindPopup("<b>July 2014 - Present</b><br><i>Scientific Aid</i><br>California Department of Water Resources<br>Bay Delta Office<br>Conveyance Branch<br><br><a href='javascript:;' onclick='map.fitBounds(marker_group_CCFPS.getBounds(), {padding: [100,100]});'>Clifton Court Forebay Predation Study</a><br>&nbsp;-&nbsp;Collect fish using hook and line sampling methods<br>&nbsp;-&nbsp;Tag and release fish<br>&nbsp;-&nbsp;Conduct bird and fishermen surveys<br>&nbsp;-&nbsp;Collect weather and water quality data<br>&nbsp;-&nbsp;Created database for storing tagged fish data<br><a href='javascript:;' onclick='map.fitBounds(marker_group_FSE.getBounds(), {padding: [100,100]});'>Fish Screen Evaluations</a><br>&nbsp;-&nbsp;Collect larval fish that have passed screens<br>&nbsp;-&nbsp;Measure screen approach velocity<br>&nbsp;-&nbsp;Document screen condition before and after monthly cleaning<br><img class='popup_image' src='DWR_logo_150.jpg'/>");
     
 	marker_bird=L.marker([37.83029, -121.55604], {
         icon: icon_bird,
         title:"Scientific Aid",
         riseOnHover:true, 
     }).addTo(map)
-		.bindPopup("<b>July 2014 - Present</b><br><i>Scientific Aid</i><br>California Department of Water Resources<br>Bay Delta Office<br>Conveyance Branch<br><br>Clifton Court Forebay Predation Study<br>&nbsp;-&nbsp;Piscivorous bird surveys<br><a href='BDO_birding_250.jpg' rel='shadowbox'><img src='BDO_birding_250.jpg' onmouseover=tester() onmouseout=littlepic('BDO_birding_250.jpg') /></a>");
+		.bindPopup("<b>July 2014 - Present</b><br><i>Scientific Aid</i><br>California Department of Water Resources<br>Bay Delta Office<br>Conveyance Branch<br><br>Clifton Court Forebay Predation Study<br>&nbsp;-&nbsp;Piscivorous bird surveys<br><img src='BDO_birding_250.jpg' />");
     
 	marker_fish=L.marker([37.83228, -121.59363], {
         icon: icon_fish,
@@ -257,9 +265,25 @@ html,body{
         riseOnHover:true, 
     }).addTo(map)
 		.bindPopup("<b>July 2014 - Present</b><br><i>Scientific Aid</i><br>California Department of Water Resources<br>Bay Delta Office<br>Conveyance Branch<br><br>Clifton Court Forebay Predation Study<br>&nbsp;-&nbsp;Fish capture and tagging");
-		
+	
+	marker_barker_slough=L.marker([38.2761897,-121.7970729], {
+        icon: icon_river,
+        title:"Scientific Aid",
+        riseOnHover:true, 
+    }).addTo(map)
+		.bindPopup("<b>January 2015 - Present</b><br><i>Scientific Aid</i><br>California Department of Water Resources<br>Bay Delta Office<br>Conveyance Branch<br><br>Fish Screen Evaluations - Barker Slough<br>&nbsp;-&nbsp;Monitor effectiveness of pumping plant fish screens<br>&nbsp;-&nbsp;Collect post-screen water and filter for larval fish");
 
-    var marker_group_CCFPS = new L.featureGroup([marker_bird, marker_fish]);   
+	marker_roaring_river=L.marker([38.0934408,-121.8870987], {
+        icon: icon_river,
+        title:"Scientific Aid",
+        riseOnHover:true,
+    }).addTo(map)
+		.bindPopup("<b>January 2015 - Present</b><br><i>Scientific Aid</i><br>California Department of Water Resources<br>Bay Delta Office<br>Conveyance Branch<br><br>Fish Screen Evaluations - Roaring River<br>&nbsp;-&nbsp;Measure screen approach velocity with Acoustic Doppler Velocimeter<br>&nbsp;-&nbsp;Document screen conditions before and after monthly cleaning");
+
+
+		
+    var marker_group_CCFPS = new L.featureGroup([marker_bird, marker_fish]); 
+	var marker_group_FSE = new L.featureGroup([marker_barker_slough,marker_roaring_river]);
     var marker_group = new L.featureGroup([marker_idem, marker_cgda, marker_spea, marker_iugfs, marker_BDO, marker_bird, marker_fish]);
 
 	
