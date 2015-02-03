@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<script src="carrotsearch.circles.js"></script>
+	<script src="delta_admin_performance.js"></script>
+	
+    <style type="text/css"> 
+	  body {
+		text-align: center;
+	    background: linear-gradient(to right, #07537b 0%, #d1edf0 50%, #07537b 100%);
+		font-family: Arial, Helvetica, sans-serif;
+	  }
+	  
+      html, body, #container {
+		height: 98%;
+		width: 98%;
+		background: #CCCCFF;
+		border-radius: 5px;
+		}
+		
+	  #container {
+	    position: relative;
+	  }
+	  
+	  #visualizationcontainer{
+	    position: absolute;
+		left: 20px;
+		right: 45%;
+		top: 20px;
+		bottom: 20px;
+
+		-left: 0px;
+		-right: 0px;
+		-top: 0px;
+		-bottom: 0px;  
+	  }
+	  
+	  #visualization {
+		height: 100%;
+		width: 100%
+        postion: absolute;
+      }
+	  
+	  #details{
+		text-align: left;
+		position: absolute;
+		left: 60%;
+		right: 0;
+		top: 0;
+		bottom: 0;
+	  }
+	  
+	  .Active{
+		background-color: #66FF66;
+		border-radius: 15px;
+		padding: 10px;
+	  }
+	  
+	  .Completed{
+		background-color: #6495ed;
+		border-radius: 15px;
+		padding: 10px;
+	  }
+	  
+	  .Past_Due{
+		background-color: #FF0000;
+		border-radius: 15px;
+		padding: 10px;
+	  }	  
+	  
+	  .Pending{
+		background-color: #CCCCFF;
+		border: 2px solid black;
+		border-radius: 15px;
+		padding: 10px;
+	  }
+	  
+
+	  
+    </style>
+</head>
+
+<body>
+
+<h1>Delta Plan Administrative Measures Tracking</h1>
+  <div id="container">
+	  <div id="visualizationcontainer">
+		<div id="visualization"></div>
+	  </div>
+	  <div id="details"><h2>Administrative Performance Measure Details</h2>
+		<br>
+			<div id="inner" style="overflow:hidden;width: 400px">
+			<div class='Completed' style='float:left'>Completed</div><div class='Active' style='float:left'>Active</div><div class='Pending' style='float:left'>Pending</div><div class='Past_Due' style='float:left'>Past Due</div>
+			</div>
+		<div id="more_details"></div>		
+	  </div>
+  </div>
+
+
+  <script>
+		var current_date = new Date().setHours(0,0,0,0);
+		var date_dif = (new Date('2/2/2016') - current_date)/(24*60*60*1000);
+	 
+	var customColors = function(opts, params, vars) {
+	  console.log("Color decorator callback.", params, vars);
+	  if (params.group.type != 'Measure') {
+		vars.groupColor = "#99CCFF"
+	  } else if (params.group.status == "Completed") {
+		vars.groupColor = "#6495ed"
+	  } else if ((params.group.status != "Completed" && params.group.due_date <= "12/31/2014") || params.group.status == "Past Due") {
+		vars.groupColor = "#FF0000"
+	  } else if (params.group.status == "Active") {
+		vars.groupColor = "#66FF66"
+	  } else if (params.group.status == "Pending") {
+		vars.groupColor = "#CCCCFF"
+	  } else {
+		vars.groupColor = "#99CCFF"
+	  };
+	  //vars.groupColor = params.group.gcolor;
+	  vars.labelColor = "auto";
+	};
+
+	
+	var padding = 1;
+	var fraction = 1 / 100;
+	
+	window.addEventListener("load", function() {
+	  // Call visualization embedding code.
+	    if (CarrotSearchCircles.supported) {
+		  var circles = new CarrotSearchCircles({
+			id: "visualization",
+			dataObject: deltaplan_dataobject,
+			titleBar: "inscribed",
+			  titleBarTextColor: "black",
+				titleBarLabelDecorator: function(attrs) {
+					if (attrs.hoverGroup && attrs.hoverGroup.type!="Chapter") {
+					   attrs.label = attrs.hoverGroup.description;
+					} else if (attrs.selectedGroups.length == 1 && attrs.selectedGroups[0].type!="Chapter") {
+					   attrs.label = attrs.selectedGroups[0].description;
+					} else {
+					   attrs.label = "Double click to expand/contract a section, hold control to select multiple measures";
+					}
+				},
+
+			  diameter: function(box) {
+				return (Math.min(box.height, box.width) - padding * 2) * (1 - fraction);
+			  },
+
+			ringScaling: 0.65,
+			angleStart: 270,
+			visibleGroupCount: 0,
+			groupHoverHierarchy: true,
+			zoomedFraction: 0.9,
+			rainbowStartColor: "hsla(175, 100%, 50%, 0.7)",
+			rainbowEndColor: "hsla(249, 100%, 50%, 0.7)",
+			groupColorDecorator: customColors,
+			rolloutTime: 0,
+			onGroupSelectionChanged: function(info) {
+				var groups = circles.get("selection").groups;
+				var group;
+				var group_details = "";
+				var status_class;
+
+				for (group = 0; group < groups.length; ++group) {
+					if ((groups[group].status != "Completed" && groups[group].due_date <= "12/31/2014") || groups[group].status == "Past Due") {
+						status_class = "Past_Due"
+					  } else if (groups[group].type == "Measure" ) {
+						status_class = groups[group].status
+					  };
+					group_details += "<br><div class='" + status_class + "'><h3>" + groups[group].type + ": <b>" + groups[group].label + "</b></h3><br><b>Description:</b> " + groups[group].description + "<br><br><b>Status:</b> " + groups[group].status + "<br><b>Due Date:</b> " + groups[group].due_date +  "</div><br>";
+				};
+				document.getElementById("more_details").innerHTML = group_details;
+			},
+		  });
+		  window.addEventListener("resize", function() {
+			circles.resize();
+			});
+		} else {
+		  console.log("Visualization not supported.");
+		}
+		});
+	
+  </script>
+</body>
+</html>
