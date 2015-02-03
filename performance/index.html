@@ -91,7 +91,10 @@
 	  <div id="details"><h2>Administrative Performance Measure Details</h2>
 		<br>
 			<div id="inner" style="overflow:hidden;width: 400px">
-			<div class='Completed' style='float:left'>Completed</div><div class='Active' style='float:left'>Active</div><div class='Pending' style='float:left'>Pending</div><div class='Past_Due' style='float:left'>Past Due</div>
+			<div class='Completed' style='float:left'>Completed</div>
+			<div class='Active' style='float:left'>Active</div>
+			<div class='Pending' style='float:left'>Pending</div>
+			<div class='Past_Due' style='float:left'>Past Due</div>
 			</div>
 		<div id="more_details"></div>		
 	  </div>
@@ -101,7 +104,8 @@
   <script>
 		var current_date = new Date().setHours(0,0,0,0);
 		var date_dif = (new Date('2/2/2016') - current_date)/(24*60*60*1000);
-	 
+
+	
 	var customColors = function(opts, params, vars) {
 	  console.log("Color decorator callback.", params, vars);
 	  if (params.group.type != 'Measure') {
@@ -139,7 +143,7 @@
 					} else if (attrs.selectedGroups.length == 1 && attrs.selectedGroups[0].type!="Chapter") {
 					   attrs.label = attrs.selectedGroups[0].description;
 					} else {
-					   attrs.label = "Double click to expand/contract a section, hold control to select multiple measures";
+					   attrs.label = "Double click to expand/contract a chapter, hold control to select multiple measures";
 					}
 				},
 
@@ -156,6 +160,15 @@
 			rainbowEndColor: "hsla(249, 100%, 50%, 0.7)",
 			groupColorDecorator: customColors,
 			rolloutTime: 0,
+			
+			onBeforeZoom: function(info) { if (info.group.type != "Chapter") {return false} },
+			//onGroupDoubleClick: function(info) {
+			//	var groups = circle.get("selection").groups;
+			//	if (groups[0].type != "Chapter") {
+			//		return false
+			//	}
+			//};
+				
 			onGroupSelectionChanged: function(info) {
 				var groups = circles.get("selection").groups;
 				var group;
