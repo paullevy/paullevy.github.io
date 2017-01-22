@@ -57,7 +57,7 @@ var geothermal_stations = {
                     "GeologicSetting": "moraine crest", 
                     "BulkDensity": "1.64-1.80 g/cm3", 
                     "Description": "Monitoring site installed in a Clay Loam along the Wabash Moraine Crest at Dustin Acres Land Trust near Huntertown, Indiana.", 
-                    "Hyperlink":"",
+                    "Hyperlink":"http:\/\/129.79.145.71:180\/",
                 }, 
                 "geometry": { "type": "Point", "coordinates": [ -85.118256, 41.247682 ] } 
             },
