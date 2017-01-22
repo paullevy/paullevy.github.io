@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Eclipse Calculator</title>
+<link rel="stylesheet" href="css/animations.css">
+</head>
+
+<style>
+@font-face {
+	font-family:alienleague;
+	src: url('fonts/alienleague.ttf');
+	}
+	
+body{
+	width:96%;
+	margin-left:2%;
+	margin-right:2%;
+	background-color: black;
+	text-align: center;
+	color: white;
+	font-size:450%;
+	font-family:alienleague;
+	}
+
+.c_button {
+	width: 5em;
+	}
+
+.h_button_a1 {
+	width: 5em;
+	display: none;
+	}
+	
+.h_button_a2 {
+	width: 5em;
+	display: none;
+	}
+	
+.h_button_a3 {
+	width: 5em;
+	display: none;
+	}
+	
+.h_button_d1 {
+	width: 5em;
+	display: none;
+	}
+	
+.h_button_d2 {
+	width: 5em;
+	display: none;
+	}
+	
+.h_button_d3 {
+	width: 5em;
+	display: none;
+	}
+	
+.container {
+	width: 88%;
+	margin-left:4%;
+	margin-right:4%;
+	margin-top:1%;
+	position:relative;
+	text-align: center;
+	font-size:50%;
+	line-height:108%;
+	
+	background: -moz-linear-gradient(left,  rgba(150,50,50,0.75) 0%, rgba(0,0,0,0.75) 47%, rgba(50,50,150,0.75) 100%); /* FF3.6+ */
+	
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(150,50,50,0.75)), color-stop(47%,rgba(0,0,0,0.75)), color-stop(100%,rgba(50,50,150,0.75))); /* Chrome,Safari4+ */
+	
+	background: -webkit-linear-gradient(left,  rgba(150,50,50,0.75) 0%,rgba(0,0,0,0.75) 47%,rgba(50,50,150,0.75) 100%); /* Chrome10+,Safari5.1+ */
+	
+	background: -o-linear-gradient(left,  rgba(150,50,50,0.75) 0%,rgba(0,0,0,0.75) 47%,rgba(50,50,150,0.75) 100%); /* Opera 11.10+ */
+	
+	background: -ms-linear-gradient(left,  rgba(150,50,50,0.75) 0%,rgba(0,0,0,0.75) 47%,rgba(50,50,150,0.75) 100%); /* IE10+ */
+	
+	background: linear-gradient(to right,  rgba(150,50,50,0.75) 0%,rgba(0,0,0,0.75) 47%,rgba(50,50,150,0.75) 100%); /* W3C */
+	
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80963232', endColorstr='#80323296',GradientType=1 ); /* IE6-9 */
+
+}
+
+.attacker {
+	position: absolute;
+	top: 0%;
+	left: 3%;
+	text-align: left;
+	font-size:100%;
+	line-height:100%;
+}
+
+.defender {
+	position: absolute;
+	top: 0%;
+	right: 3%;
+	text-align: right;
+	font-size:100%;
+	line-height:100%;
+}
+
+.buttons {
+	width: 50%;
+	margin-left:23%;
+	margin-right:23%;
+	margin-top:1%;
+	position:relative;
+	text-align: center;
+	font-size:50%;
+
+	background-color: rgba(50,50,50,0.75);
+}
+
+.shipChanger {
+	font-size:75%;
+	text-decoration: none;
+	color: white;
+	}
+	
+.shipChanger_hid {
+	display: none;
+	font-size: 75%;
+	text-decoration: none;
+	color: white;
+	}
+
+</style>
+
+<script src="js/eclipsecalculator.js">
+</script>
+
+<body>
+
+<script type="text/javascript">
+alert("Welcome to Paul's Monte Carlo simulator for the board game Eclipse. Select the weapons and upgrades for the attacking and defending ships using the drop down menus.  You can change the number of iterations the simulator will run or keep the default of 100,000, then click Iterate.  This is a work in progress and can currently only simulate one ship attacking and defending at a time.");
+</script>
+
+<div class="fadeInB">
+EclIpse Calculator
+
+
+<div  class="pullDown15">
+<div class="container">
+<div>
+
+<div class="fadeIn3">
+<br>
+Number of Ships
+<br>
+initiative
+<br>
+ion Cannons (*)
+<br>
+Plasma Cannons (**)
+<br>
+Antimatter Cannons (****)
+<br>
+Plasma Missiles (2 X **)
+<br>
+Attack Bonus
+<br>
+Shield Bonus
+<br>
+Hull
+<br><br>
+
+<div class="attacker">
+
+Attacking Ships
+
+<br>
+
+<select id="a_ships" class="c_button">
+    <option value=0>0 ships</option>
+    <option value=1>1 ships</option>
+    <option value=2>2 ships</option>
+    <option value=3>3 ships</option>
+    <option value=4>4 ships</option>
+    <option value=5>5 ships</option>
+    <option value=6>6 ships</option>
+    <option value=7>7 ships</option>
+</select>
+
+<a href = "javascript:void(0)" 
+id="ships_plus_a1"
+class="shipChanger" 
+onclick = 
+"var classLen = document.getElementsByClassName('h_button_a1').length;
+for (var i = 0; i < classLen; i++) 
+{document.getElementsByClassName('h_button_a1')[i].style.display='inline';};
+document.getElementById('ships_plus_a1').style.display='none';
+document.getElementById('ships_minus_a1').style.display='inline';
+document.getElementById('ships_plus_a2').style.display='inline';">+</a>
+
+<select id="a_ships_2" class="h_button_a1">
+    <option value=0>0 ships</option>
+    <option value=1>1 ship</option>
+    <option value=2>2 ships</option>
+    <option value=3>3 ships</option>
+    <option value=4>4 ships</option>
+    <option value=5>5 ships</option>
+    <option value=6>6 ships</option>
+    <option value=7>7 ships</option>
+</select>
+
+<a href = "javascript:void(0)" 
+id="ships_minus_a1"
+class="shipChanger_hid" 
+onclick = 
+"var classLen = document.getElementsByClassName('h_button_a1').length;
+for (var i = 0; i < classLen; i++) 
+{document.getElementsByClassName('h_button_a1')[i].style.display='none';};
+document.getElementById('ships_plus_a1').style.display='inline';
+document.getElementById('ships_minus_a1').style.display='none';
+document.getElementById('ships_plus_a2').style.display='none';">-</a>
+
+<a href = "javascript:void(0)" 
+id="ships_plus_a2"
+class="shipChanger_hid" 
+onclick = 
+"var classLen = document.getElementsByClassName('h_button_a2').length;
+for (var i = 0; i < classLen; i++) 
+{document.getElementsByClassName('h_button_a2')[i].style.display='inline';};
+document.getElementById('ships_minus_a2').style.display='inline';
+document.getElementById('ships_plus_a3').style.display='inline';
+document.getElementById('ships_minus_a1').style.display='none';
+document.getElementById('ships_plus_a2').style.display='none';">+</a>
+
+<select id="a_ships_3" class="h_button_a2">
+    <option value=0>0 ships</option>
+    <option value=1>1 ship</option>
+    <option value=2>2 ships</option>
+    <option value=3>3 ships</option>
+    <option value=4>4 ships</option>
+    <option value=5>5 ships</option>
+    <option value=6>6 ships</option>
+    <option value=7>7 ships</option>
+</select>
+
+<a href = "javascript:void(0)" 
+id="ships_minus_a2"
+class="shipChanger_hid" 
+onclick = 
+"var classLen = document.getElementsByClassName('h_button_a2').length;
+for (var i = 0; i < classLen; i++) 
+{document.getElementsByClassName('h_button_a2')[i].style.display='none';};
+document.getElementById('ships_minus_a1').style.display='inline';
+document.getElementById('ships_plus_a2').style.display='inline';
+document.getElementById('ships_minus_a2').style.display='none';
+document.getElementById('ships_plus_a3').style.display='none';">-</a>
+
+<a href = "javascript:void(0)" 
+id="ships_plus_a3"
+class="shipChanger_hid" 
+onclick = 
+"var classLen = document.getElementsByClassName('h_button_a3').length;
+for (var i = 0; i < classLen; i++) 
+{document.getElementsByClassName('h_button_a3')[i].style.display='inline';};
+document.getElementById('ships_minus_a3').style.display='inline';
+document.getElementById('ships_minus_a2').style.display='none';
+document.getElementById('ships_plus_a3').style.display='none';">+</a>
+
+<select id="a_ships_4" class="h_button_a3">
+    <option value=0>0 ships</option>
+    <option value=1>1 ship</option>
+    <option value=2>2 ships</option>
+    <option value=3>3 ships</option>
+    <option value=4>4 ships</option>
+    <option value=5>5 ships</option>
+    <option value=6>6 ships</option>
+    <option value=7>7 ships</option>
+</select>
+
+<a href = "javascript:void(0)" 
+id="ships_minus_a3"
+class="shipChanger_hid" 
+onclick = 
+"var classLen = document.getElementsByClassName('h_button_a3').length;
+for (var i = 0; i < classLen; i++) 
+{document.getElementsByClassName('h_button_a3')[i].style.display='none';};
+document.getElementById('ships_minus_a3').style.display='none';
+document.getElementById('ships_minus_a2').style.display='inline';
+document.getElementById('ships_plus_a3').style.display='inline';">-</a>
+
+<br>
+<select id="a_init" class="c_button"> 
+    <option value=0>0 initiative bonus</option>
+    <option value=1>1 initiative bonus</option>
+    <option value=2>2 initiative bonus</option>
+    <option value=3>3 initiative bonus</option>
+    <option value=4>4 initiative bonus</option>
+    <option value=5>5 initiative bonus</option>
+    <option value=6>6 initiative bonus</option>
+</select>
+
+<select id="a_init_2" class="h_button_a1"> 
+    <option value=0>0 initiative bonus</option>
+    <option value=1>1 initiative bonus</option>
+    <option value=2>2 initiative bonus</option>
+    <option value=3>3 initiative bonus</option>
+    <option value=4>4 initiative bonus</option>
+    <option value=5>5 initiative bonus</option>
+    <option value=6>6 initiative bonus</option>
+</select>
+
+<select id="a_init_3" class="h_button_a2"> 
+    <option value=0>0 initiative bonus</option>
+    <option value=1>1 initiative bonus</option>
+    <option value=2>2 initiative bonus</option>
+    <option value=3>3 initiative bonus</option>
+    <option value=4>4 initiative bonus</option>
+    <option value=5>5 initiative bonus</option>
+    <option value=6>6 initiative bonus</option>
+</select>
+
+<select id="a_init_4" class="h_button_a3"> 
+    <option value=0>0 initiative bonus</option>
+    <option value=1>1 initiative bonus</option>
+    <option value=2>2 initiative bonus</option>
+    <option value=3>3 initiative bonus</option>
+    <option value=4>4 initiative bonus</option>
+    <option value=5>5 initiative bonus</option>
+    <option value=6>6 initiative bonus</option>
+</select>
+
+<br>
+<select id="a_wep_i" class="c_button"> 
+    <option value=0>0 ion cannons</option>
+    <option value=1>1 ion cannon</option>
+    <option value=2>2 ion cannons</option>
+    <option value=3>3 ion cannons</option>
+    <option value=4>4 ion cannons</option>
+    <option value=5>5 ion cannons</option>
+    <option value=6>6 ion cannons</option>
+</select>
+
+<select id="a_wep_i_2" class="h_button_a1"> 
+    <option value=0>0 ion cannons</option>
+    <option value=1>1 ion cannon</option>
+    <option value=2>2 ion cannons</option>
+    <option value=3>3 ion cannons</option>
+    <option value=4>4 ion cannons</option>
+    <option value=5>5 ion cannons</option>
+    <option value=6>6 ion cannons</option>
+</select>
+
+<select id="a_wep_i_3" class="h_button_a2"> 
+    <option value=0>0 ion cannons</option>
+    <option value=1>1 ion cannon</option>
+    <option value=2>2 ion cannons</option>
+    <option value=3>3 ion cannons</option>
+    <option value=4>4 ion cannons</option>
+    <option value=5>5 ion cannons</option>
+    <option value=6>6 ion cannons</option>
+</select>
+
+<select id="a_wep_i_4" class="h_button_a3"> 
+    <option value=0>0 ion cannons</option>
+    <option value=1>1 ion cannon</option>
+    <option value=2>2 ion cannons</option>
+    <option value=3>3 ion cannons</option>
+    <option value=4>4 ion cannons</option>
+    <option value=5>5 ion cannons</option>
+    <option value=6>6 ion cannons</option>
+</select>
+
+<br>
+<select id="a_wep_p" class="c_button"> 
+    <option value=0>0 plasma cannons</option>
+    <option value=1>1 plasma cannon</option>
+    <option value=2>2 plasma cannons</option>
+    <option value=3>3 plasma cannons</option>
+    <option value=4>4 plasma cannons</option>
+    <option value=5>5 plasma cannons</option>
+    <option value=6>6 plasma cannons</option>
+</select>
+
+<select id="a_wep_p_2" class="h_button_a1"> 
+    <option value=0>0 plasma cannons</option>
+    <option value=1>1 plasma cannon</option>
+    <option value=2>2 plasma cannons</option>
+    <option value=3>3 plasma cannons</option>
+    <option value=4>4 plasma cannons</option>
+    <option value=5>5 plasma cannons</option>
+    <option value=6>6 plasma cannons</option>
+</select>
+
+<select id="a_wep_p_3" class="h_button_a2"> 
+    <option value=0>0 plasma cannons</option>
+    <option value=1>1 plasma cannon</option>
+    <option value=2>2 plasma cannons</option>
+    <option value=3>3 plasma cannons</option>
+    <option value=4>4 plasma cannons</option>
+    <option value=5>5 plasma cannons</option>
+    <option value=6>6 plasma cannons</option>
+</select>
+
+<select id="a_wep_p_4" class="h_button_a3"> 
+    <option value=0>0 plasma cannons</option>
+    <option value=1>1 plasma cannon</option>
+    <option value=2>2 plasma cannons</option>
+    <option value=3>3 plasma cannons</option>
+    <option value=4>4 plasma cannons</option>
+    <option value=5>5 plasma cannons</option>
+    <option value=6>6 plasma cannons</option>
+</select>
+
+<br>
+<select id="a_wep_a" class="c_button"> 
+    <option value=0>0 antimatter cannons</option>
+    <option value=1>1 antimatter cannon</option>
+    <option value=2>2 antimatter cannons</option>
+    <option value=3>3 antimatter cannons</option>
+    <option value=4>4 antimatter cannons</option>
+    <option value=5>5 antimatter cannons</option>
+    <option value=6>6 antimatter cannons</option>
+</select>
+
+<select id="a_wep_a_2" class="h_button_a1"> 
+    <option value=0>0 antimatter cannons</option>
+    <option value=1>1 antimatter cannon</option>
+    <option value=2>2 antimatter cannons</option>
+    <option value=3>3 antimatter cannons</option>
+    <option value=4>4 antimatter cannons</option>
+    <option value=5>5 antimatter cannons</option>
+    <option value=6>6 antimatter cannons</option>
+</select>
+
+<select id="a_wep_a_3" class="h_button_a2"> 
+    <option value=0>0 antimatter cannons</option>
+    <option value=1>1 antimatter cannon</option>
+    <option value=2>2 antimatter cannons</option>
+    <option value=3>3 antimatter cannons</option>
+    <option value=4>4 antimatter cannons</option>
+    <option value=5>5 antimatter cannons</option>
+    <option value=6>6 antimatter cannons</option>
+</select>
+
+<select id="a_wep_a_4" class="h_button_a3"> 
+    <option value=0>0 antimatter cannons</option>
+    <option value=1>1 antimatter cannon</option>
+    <option value=2>2 antimatter cannons</option>
+    <option value=3>3 antimatter cannons</option>
+    <option value=4>4 antimatter cannons</option>
+    <option value=5>5 antimatter cannons</option>
+    <option value=6>6 antimatter cannons</option>
+</select>
+
+<br>
+<select id="a_wep_pm" class="c_button"> 
+    <option value=0>0 plasma missiles</option>
+    <option value=1>1 plasma missile</option>
+    <option value=2>2 plasma missiles</option>
+    <option value=3>3 plasma missiles</option>
+    <option value=4>4 plasma missiles</option>
+    <option value=5>5 plasma missiles</option>
+    <option value=6>6 plasma missiles</option>
+</select>
+
+<select id="a_wep_pm_2" class="h_button_a1"> 
+    <option value=0>0 plasma missiles</option>
+    <option value=1>1 plasma missile</option>
+    <option value=2>2 plasma missiles</option>
+    <option value=3>3 plasma missiles</option>
+    <option value=4>4 plasma missiles</option>
+    <option value=5>5 plasma missiles</option>
+    <option value=6>6 plasma missiles</option>
+</select>
+
+<select id="a_wep_pm_3" class="h_button_a2"> 
+    <option value=0>0 plasma missiles</option>
+    <option value=1>1 plasma missile</option>
+    <option value=2>2 plasma missiles</option>
+    <option value=3>3 plasma missiles</option>
+    <option value=4>4 plasma missiles</option>
+    <option value=5>5 plasma missiles</option>
+    <option value=6>6 plasma missiles</option>
+</select>
+
+<select id="a_wep_pm_4" class="h_button_a3"> 
+    <option value=0>0 plasma missiles</option>
+    <option value=1>1 plasma missile</option>
+    <option value=2>2 plasma missiles</option>
+    <option value=3>3 plasma missiles</option>
+    <option value=4>4 plasma missiles</option>
+    <option value=5>5 plasma missiles</option>
+    <option value=6>6 plasma missiles</option>
+</select>
+
+<br>
+<select id="a_attack" class="c_button">
+	<option value=0>0 attack bonus</option>
+    <option value=1>+1 attack bonus</option>
+    <option value=2>+2 attack bonus</option>
+    <option value=3>+3 attack bonus</option>
+    <option value=4>+4 attack bonus</option>
+</select>
+
+<select id="a_attack_2" class="h_button_a1">
+	<option value=0>0 attack bonus</option>
+    <option value=1>+1 attack bonus</option>
+    <option value=2>+2 attack bonus</option>
+    <option value=3>+3 attack bonus</option>
+    <option value=4>+4 attack bonus</option>
+</select>
+
+<select id="a_attack_3" class="h_button_a2">
+	<option value=0>0 attack bonus</option>
+    <option value=1>+1 attack bonus</option>
+    <option value=2>+2 attack bonus</option>
+    <option value=3>+3 attack bonus</option>
+    <option value=4>+4 attack bonus</option>
+</select>
+
+<select id="a_attack_4" class="h_button_a3">
+	<option value=0>0 attack bonus</option>
+    <option value=1>+1 attack bonus</option>
+    <option value=2>+2 attack bonus</option>
+    <option value=3>+3 attack bonus</option>
+    <option value=4>+4 attack bonus</option>
+</select>
+
+<br>
+<select id="a_shield" class="c_button">
+	<option value=0>0 shield</option>
+    <option value=-1>-1 shield</option>
+    <option value=-2>-2 shield</option>
+    <option value=-3>-3 shield</option>
+    <option value=-4>-4 shield</option>
+</select>
+
+<select id="a_shield_2" class="h_button_a1">
+	<option value=0>0 shield</option>
+    <option value=-1>-1 shield</option>
+    <option value=-2>-2 shield</option>
+    <option value=-3>-3 shield</option>
+    <option value=-4>-4 shield</option>
+</select>
+
+<select id="a_shield_3" class="h_button_a2">
+	<option value=0>0 shield</option>
+    <option value=-1>-1 shield</option>
+    <option value=-2>-2 shield</option>
+    <option value=-3>-3 shield</option>
+    <option value=-4>-4 shield</option>
+</select>
+
+<select id="a_shield_4" class="h_button_a3">
+	<option value=0>0 shield</option>
+    <option value=-1>-1 shield</option>
+    <option value=-2>-2 shield</option>
+    <option value=-3>-3 shield</option>
+    <option value=-4>-4 shield</option>
+</select>
+
+<br>
+<select id="a_hull" class="c_button">
+    <option value=1>1 hull</option>
+    <option value=2>2 hull</option>
+    <option value=3>3 hull</option>
+    <option value=4>4 hull</option>
+    <option value=5>5 hull</option>
+    <option value=6>6 hull</option>
+    <option value=7>7 hull</option>
+    <option value=8>8 hull</option>
+    <option value=9>9 hull</option>
+    <option value=10>10 hull</option>
+</select>
+
+<select id="a_hull_2" class="h_button_a1">
+    <option value=1>1 hull</option>
+    <option value=2>2 hull</option>
+    <option value=3>3 hull</option>
+    <option value=4>4 hull</option>
+    <option value=5>5 hull</option>
+    <option value=6>6 hull</option>
+    <option value=7>7 hull</option>
+    <option value=8>8 hull</option>
+    <option value=9>9 hull</option>
+    <option value=10>10 hull</option>
+</select>
+
+<select id="a_hull_3" class="h_button_a2">
+    <option value=1>1 hull</option>
+    <option value=2>2 hull</option>
+    <option value=3>3 hull</option>
+    <option value=4>4 hull</option>
+    <option value=5>5 hull</option>
+    <option value=6>6 hull</option>
+    <option value=7>7 hull</option>
+    <option value=8>8 hull</option>
+    <option value=9>9 hull</option>
+    <option value=10>10 hull</option>
+</select>
+
+<select id="a_hull_4" class="h_button_a3">
+    <option value=1>1 hull</option>
+    <option value=2>2 hull</option>
+    <option value=3>3 hull</option>
+    <option value=4>4 hull</option>
+    <option value=5>5 hull</option>
+    <option value=6>6 hull</option>
+    <option value=7>7 hull</option>
+    <option value=8>8 hull</option>
+    <option value=9>9 hull</option>
+    <option value=10>10 hull</option>
+</select>
+
+<br>
+
+</div>
+
+
+<div class="defender">
+
+Defending Ships
+<br>
+
+<a href = "javascript:void(0)" 
+id="ships_plus_d1"
+class="shipChanger" 
+onclick = 
+"var classLen = document.getElementsByClassName('h_button_d1').length;
+for (var i = 0; i < classLen; i++) 
+{document.getElementsByClassName('h_button_d1')[i].style.display='inline';};
+document.getElementById('ships_plus_d1').style.display='none';
+document.getElementById('ships_minus_d1').style.display='inline';
+document.getElementById('ships_plus_d2').style.display='inline';">+</a>
+
+<a href = "javascript:void(0)" 
+id="ships_plus_d2"
+class="shipChanger_hid" 
+onclick = 
+"var classLen = document.getElementsByClassName('h_button_d2').length;
+for (var i = 0; i < classLen; i++) 
+{document.getElementsByClassName('h_button_d2')[i].style.display='inline';};
+document.getElementById('ships_minus_d2').style.display='inline';
+document.getElementById('ships_plus_d3').style.display='inline';
+document.getElementById('ships_minus_d1').style.display='none';
+document.getElementById('ships_plus_d2').style.display='none';">+</a>
+
+<a href = "javascript:void(0)" 
+id="ships_minus_d1"
+class="shipChanger_hid" 
+onclick = 
+"var classLen = document.getElementsByClassName('h_button_d1').length;
+for (var i = 0; i < classLen; i++) 
+{document.getElementsByClassName('h_button_d1')[i].style.display='none';};
+document.getElementById('ships_plus_d1').style.display='inline';
+document.getElementById('ships_minus_d1').style.display='none';
+document.getElementById('ships_plus_d2').style.display='none';">-</a>
+
+<a href = "javascript:void(0)" 
+id="ships_plus_d3"
+class="shipChanger_hid" 
+onclick = 
+"var classLen = document.getElementsByClassName('h_button_d3').length;
+for (var i = 0; i < classLen; i++) 
+{document.getElementsByClassName('h_button_d3')[i].style.display='inline';};
+document.getElementById('ships_minus_d3').style.display='inline';
+document.getElementById('ships_minus_d2').style.display='none';
+document.getElementById('ships_plus_d3').style.display='none';">+</a>
+
+<a href = "javascript:void(0)" 
+id="ships_minus_d2"
+class="shipChanger_hid" 
+onclick = 
+"var classLen = document.getElementsByClassName('h_button_d2').length;
+for (var i = 0; i < classLen; i++) 
+{document.getElementsByClassName('h_button_d2')[i].style.display='none';};
+document.getElementById('ships_minus_d1').style.display='inline';
+document.getElementById('ships_plus_d2').style.display='inline';
+document.getElementById('ships_minus_d2').style.display='none';
+document.getElementById('ships_plus_d3').style.display='none';">-</a>
+
+<a href = "javascript:void(0)" 
+id="ships_minus_d3"
+class="shipChanger_hid" 
+onclick = 
+"var classLen = document.getElementsByClassName('h_button_d3').length;
+for (var i = 0; i < classLen; i++) 
+{document.getElementsByClassName('h_button_d3')[i].style.display='none';};
+document.getElementById('ships_minus_d3').style.display='none';
+document.getElementById('ships_minus_d2').style.display='inline';
+document.getElementById('ships_plus_d3').style.display='inline';">-</a>
+
+<select id="d_ships" class="c_button">
+    <option value=0>0 ships</option>
+    <option value=1>1 ships</option>
+    <option value=2>2 ships</option>
+    <option value=3>3 ships</option>
+    <option value=4>4 ships</option>
+    <option value=5>5 ships</option>
+    <option value=6>6 ships</option>
+    <option value=7>7 ships</option>
+</select>
+
+<select id="d_ships_2" class="h_button_d1">
+    <option value=0>0 ships</option>
+    <option value=1>1 ship</option>
+    <option value=2>2 ships</option>
+    <option value=3>3 ships</option>
+    <option value=4>4 ships</option>
+    <option value=5>5 ships</option>
+    <option value=6>6 ships</option>
+    <option value=7>7 ships</option>
+</select>
+
+<select id="d_ships_3" class="h_button_d2">
+    <option value=0>0 ships</option>
+    <option value=1>1 ship</option>
+    <option value=2>2 ships</option>
+    <option value=3>3 ships</option>
+    <option value=4>4 ships</option>
+    <option value=5>5 ships</option>
+    <option value=6>6 ships</option>
+    <option value=7>7 ships</option>
+</select>
+
+<select id="d_ships_4" class="h_button_d3">
+    <option value=0>0 ships</option>
+    <option value=1>1 ship</option>
+    <option value=2>2 ships</option>
+    <option value=3>3 ships</option>
+    <option value=4>4 ships</option>
+    <option value=5>5 ships</option>
+    <option value=6>6 ships</option>
+    <option value=7>7 ships</option>
+</select>
+
+<br>
+<select id="d_init" class="c_button"> 
+    <option value=0>0 initiative bonus</option>
+    <option value=1>1 initiative bonus</option>
+    <option value=2>2 initiative bonus</option>
+    <option value=3>3 initiative bonus</option>
+    <option value=4>4 initiative bonus</option>
+    <option value=5>5 initiative bonus</option>
+    <option value=6>6 initiative bonus</option>
+</select>
+
+<select id="d_init_2" class="h_button_d1"> 
+    <option value=0>0 initiative bonus</option>
+    <option value=1>1 initiative bonus</option>
+    <option value=2>2 initiative bonus</option>
+    <option value=3>3 initiative bonus</option>
+    <option value=4>4 initiative bonus</option>
+    <option value=5>5 initiative bonus</option>
+    <option value=6>6 initiative bonus</option>
+</select>
+
+<select id="d_init_3" class="h_button_d2"> 
+    <option value=0>0 initiative bonus</option>
+    <option value=1>1 initiative bonus</option>
+    <option value=2>2 initiative bonus</option>
+    <option value=3>3 initiative bonus</option>
+    <option value=4>4 initiative bonus</option>
+    <option value=5>5 initiative bonus</option>
+    <option value=6>6 initiative bonus</option>
+</select>
+
+<select id="d_init_4" class="h_button_d3"> 
+    <option value=0>0 initiative bonus</option>
+    <option value=1>1 initiative bonus</option>
+    <option value=2>2 initiative bonus</option>
+    <option value=3>3 initiative bonus</option>
+    <option value=4>4 initiative bonus</option>
+    <option value=5>5 initiative bonus</option>
+    <option value=6>6 initiative bonus</option>
+</select>
+
+<br>
+<select id="d_wep_i" class="c_button"> 
+    <option value=0>0 ion cannons</option>
+    <option value=1>1 ion cannon</option>
+    <option value=2>2 ion cannons</option>
+    <option value=3>3 ion cannons</option>
+    <option value=4>4 ion cannons</option>
+    <option value=5>5 ion cannons</option>
+    <option value=6>6 ion cannons</option>
+</select>
+
+<select id="d_wep_i_2" class="h_button_d1"> 
+    <option value=0>0 ion cannons</option>
+    <option value=1>1 ion cannon</option>
+    <option value=2>2 ion cannons</option>
+    <option value=3>3 ion cannons</option>
+    <option value=4>4 ion cannons</option>
+    <option value=5>5 ion cannons</option>
+    <option value=6>6 ion cannons</option>
+</select>
+
+<select id="d_wep_i_3" class="h_button_d2"> 
+    <option value=0>0 ion cannons</option>
+    <option value=1>1 ion cannon</option>
+    <option value=2>2 ion cannons</option>
+    <option value=3>3 ion cannons</option>
+    <option value=4>4 ion cannons</option>
+    <option value=5>5 ion cannons</option>
+    <option value=6>6 ion cannons</option>
+</select>
+
+<select id="d_wep_i_4" class="h_button_d3"> 
+    <option value=0>0 ion cannons</option>
+    <option value=1>1 ion cannon</option>
+    <option value=2>2 ion cannons</option>
+    <option value=3>3 ion cannons</option>
+    <option value=4>4 ion cannons</option>
+    <option value=5>5 ion cannons</option>
+    <option value=6>6 ion cannons</option>
+</select>
+
+<br>
+<select id="d_wep_p" class="c_button"> 
+    <option value=0>0 plasma cannons</option>
+    <option value=1>1 plasma cannon</option>
+    <option value=2>2 plasma cannons</option>
+    <option value=3>3 plasma cannons</option>
+    <option value=4>4 plasma cannons</option>
+    <option value=5>5 plasma cannons</option>
+    <option value=6>6 plasma cannons</option>
+</select>
+
+<select id="d_wep_p_2" class="h_button_d1"> 
+    <option value=0>0 plasma cannons</option>
+    <option value=1>1 plasma cannon</option>
+    <option value=2>2 plasma cannons</option>
+    <option value=3>3 plasma cannons</option>
+    <option value=4>4 plasma cannons</option>
+    <option value=5>5 plasma cannons</option>
+    <option value=6>6 plasma cannons</option>
+</select>
+
+<select id="d_wep_p_3" class="h_button_d2"> 
+    <option value=0>0 plasma cannons</option>
+    <option value=1>1 plasma cannon</option>
+    <option value=2>2 plasma cannons</option>
+    <option value=3>3 plasma cannons</option>
+    <option value=4>4 plasma cannons</option>
+    <option value=5>5 plasma cannons</option>
+    <option value=6>6 plasma cannons</option>
+</select>
+
+<select id="d_wep_p_4" class="h_button_d3"> 
+    <option value=0>0 plasma cannons</option>
+    <option value=1>1 plasma cannon</option>
+    <option value=2>2 plasma cannons</option>
+    <option value=3>3 plasma cannons</option>
+    <option value=4>4 plasma cannons</option>
+    <option value=5>5 plasma cannons</option>
+    <option value=6>6 plasma cannons</option>
+</select>
+
+<br>
+<select id="d_wep_a" class="c_button"> 
+    <option value=0>0 antimatter cannons</option>
+    <option value=1>1 antimatter cannon</option>
+    <option value=2>2 antimatter cannons</option>
+    <option value=3>3 antimatter cannons</option>
+    <option value=4>4 antimatter cannons</option>
+    <option value=5>5 antimatter cannons</option>
+    <option value=6>6 antimatter cannons</option>
+</select>
+
+<select id="d_wep_a_2" class="h_button_d1"> 
+    <option value=0>0 antimatter cannons</option>
+    <option value=1>1 antimatter cannon</option>
+    <option value=2>2 antimatter cannons</option>
+    <option value=3>3 antimatter cannons</option>
+    <option value=4>4 antimatter cannons</option>
+    <option value=5>5 antimatter cannons</option>
+    <option value=6>6 antimatter cannons</option>
+</select>
+
+<select id="d_wep_a_3" class="h_button_d2"> 
+    <option value=0>0 antimatter cannons</option>
+    <option value=1>1 antimatter cannon</option>
+    <option value=2>2 antimatter cannons</option>
+    <option value=3>3 antimatter cannons</option>
+    <option value=4>4 antimatter cannons</option>
+    <option value=5>5 antimatter cannons</option>
+    <option value=6>6 antimatter cannons</option>
+</select>
+
+<select id="d_wep_a_4" class="h_button_d3"> 
+    <option value=0>0 antimatter cannons</option>
+    <option value=1>1 antimatter cannon</option>
+    <option value=2>2 antimatter cannons</option>
+    <option value=3>3 antimatter cannons</option>
+    <option value=4>4 antimatter cannons</option>
+    <option value=5>5 antimatter cannons</option>
+    <option value=6>6 antimatter cannons</option>
+</select>
+
+<br>
+<select id="d_wep_pm" class="c_button"> 
+    <option value=0>0 plasma missiles</option>
+    <option value=1>1 plasma missile</option>
+    <option value=2>2 plasma missiles</option>
+    <option value=3>3 plasma missiles</option>
+    <option value=4>4 plasma missiles</option>
+    <option value=5>5 plasma missiles</option>
+    <option value=6>6 plasma missiles</option>
+</select>
+
+<select id="d_wep_pm_2" class="h_button_d1"> 
+    <option value=0>0 plasma missiles</option>
+    <option value=1>1 plasma missile</option>
+    <option value=2>2 plasma missiles</option>
+    <option value=3>3 plasma missiles</option>
+    <option value=4>4 plasma missiles</option>
+    <option value=5>5 plasma missiles</option>
+    <option value=6>6 plasma missiles</option>
+</select>
+
+<select id="d_wep_pm_3" class="h_button_d2"> 
+    <option value=0>0 plasma missiles</option>
+    <option value=1>1 plasma missile</option>
+    <option value=2>2 plasma missiles</option>
+    <option value=3>3 plasma missiles</option>
+    <option value=4>4 plasma missiles</option>
+    <option value=5>5 plasma missiles</option>
+    <option value=6>6 plasma missiles</option>
+</select>
+
+<select id="d_wep_pm_4" class="h_button_d3"> 
+    <option value=0>0 plasma missiles</option>
+    <option value=1>1 plasma missile</option>
+    <option value=2>2 plasma missiles</option>
+    <option value=3>3 plasma missiles</option>
+    <option value=4>4 plasma missiles</option>
+    <option value=5>5 plasma missiles</option>
+    <option value=6>6 plasma missiles</option>
+</select>
+
+<br>
+<select id="d_attack" class="c_button">
+	<option value=0>0 attack bonus</option>
+    <option value=1>+1 attack bonus</option>
+    <option value=2>+2 attack bonus</option>
+    <option value=3>+3 attack bonus</option>
+    <option value=4>+4 attack bonus</option>
+</select>
+
+<select id="d_attack_2" class="h_button_d1">
+	<option value=0>0 attack bonus</option>
+    <option value=1>+1 attack bonus</option>
+    <option value=2>+2 attack bonus</option>
+    <option value=3>+3 attack bonus</option>
+    <option value=4>+4 attack bonus</option>
+</select>
+
+<select id="d_attack_3" class="h_button_d2">
+	<option value=0>0 attack bonus</option>
+    <option value=1>+1 attack bonus</option>
+    <option value=2>+2 attack bonus</option>
+    <option value=3>+3 attack bonus</option>
+    <option value=4>+4 attack bonus</option>
+</select>
+
+<select id="d_attack_4" class="h_button_d3">
+	<option value=0>0 attack bonus</option>
+    <option value=1>+1 attack bonus</option>
+    <option value=2>+2 attack bonus</option>
+    <option value=3>+3 attack bonus</option>
+    <option value=4>+4 attack bonus</option>
+</select>
+
+<br>
+<select id="d_shield" class="c_button">
+	<option value=0>0 shield</option>
+    <option value=-1>-1 shield</option>
+    <option value=-2>-2 shield</option>
+    <option value=-3>-3 shield</option>
+    <option value=-4>-4 shield</option>
+</select>
+
+<select id="d_shield_2" class="h_button_d1">
+	<option value=0>0 shield</option>
+    <option value=-1>-1 shield</option>
+    <option value=-2>-2 shield</option>
+    <option value=-3>-3 shield</option>
+    <option value=-4>-4 shield</option>
+</select>
+
+<select id="d_shield_3" class="h_button_d2">
+	<option value=0>0 shield</option>
+    <option value=-1>-1 shield</option>
+    <option value=-2>-2 shield</option>
+    <option value=-3>-3 shield</option>
+    <option value=-4>-4 shield</option>
+</select>
+
+<select id="d_shield_4" class="h_button_d3">
+	<option value=0>0 shield</option>
+    <option value=-1>-1 shield</option>
+    <option value=-2>-2 shield</option>
+    <option value=-3>-3 shield</option>
+    <option value=-4>-4 shield</option>
+</select>
+
+<br>
+<select id="d_hull" class="c_button">
+    <option value=1>1 hull</option>
+    <option value=2>2 hull</option>
+    <option value=3>3 hull</option>
+    <option value=4>4 hull</option>
+    <option value=5>5 hull</option>
+    <option value=6>6 hull</option>
+    <option value=7>7 hull</option>
+    <option value=8>8 hull</option>
+    <option value=9>9 hull</option>
+    <option value=10>10 hull</option>
+</select>
+
+<select id="d_hull_2" class="h_button_d1">
+    <option value=1>1 hull</option>
+    <option value=2>2 hull</option>
+    <option value=3>3 hull</option>
+    <option value=4>4 hull</option>
+    <option value=5>5 hull</option>
+    <option value=6>6 hull</option>
+    <option value=7>7 hull</option>
+    <option value=8>8 hull</option>
+    <option value=9>9 hull</option>
+    <option value=10>10 hull</option>
+</select>
+
+<select id="d_hull_3" class="h_button_d2">
+    <option value=1>1 hull</option>
+    <option value=2>2 hull</option>
+    <option value=3>3 hull</option>
+    <option value=4>4 hull</option>
+    <option value=5>5 hull</option>
+    <option value=6>6 hull</option>
+    <option value=7>7 hull</option>
+    <option value=8>8 hull</option>
+    <option value=9>9 hull</option>
+    <option value=10>10 hull</option>
+</select>
+
+<select id="d_hull_4" class="h_button_d3">
+    <option value=1>1 hull</option>
+    <option value=2>2 hull</option>
+    <option value=3>3 hull</option>
+    <option value=4>4 hull</option>
+    <option value=5>5 hull</option>
+    <option value=6>6 hull</option>
+    <option value=7>7 hull</option>
+    <option value=8>8 hull</option>
+    <option value=9>9 hull</option>
+    <option value=10>10 hull</option>
+</select>
+
+<br>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div  class="pullDown2">
+<div class="buttons">
+<div class="fadeIn4">
+Iterations<br>
+<input  id="input_iter" type="number" style="width:115px" value=100000 min=1/><br>
+
+<button onclick="test3()" class="c_button">
+Iterate
+</button>
+</div>
+</div>
+</div>
+
+<div class="fadeIn4">
+<br><a href="http://www.linkedin.com/in/paulevy">Paul's LinkedIn</a>
+</div>
+
+</div>
+</body>
+
+</html>
